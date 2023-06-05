@@ -27,6 +27,7 @@ from superagi.tools.jira.create_issue import CreateIssueTool
 from superagi.tools.jira.edit_issue import EditIssueTool
 from superagi.tools.jira.get_projects import GetProjectsTool
 from superagi.tools.jira.search_issues import SearchJiraTool
+from superagi.tools.Discord.discord_main import DiscordMsgTool
 from superagi.vector_store.embedding.openai import OpenAiEmbedding
 from superagi.vector_store.vector_factory import VectorFactory
 import superagi.worker
@@ -73,8 +74,10 @@ class AgentExecutor:
             print("Agent Execution : ")
             print(agent_execution)
             parsed_config = self.fetch_agent_configuration(session, agent, agent_execution)
+            dicsord_obj =DiscordTool() 
             tools = [
                 LlmThinkingTool(llm=OpenAi(model=parsed_config["model"])),
+                dicsord_obj.discord_bot()
                 # GoogleSearchTool(),
                 # WriteFileTool(),
                 # ReadFileTool(),
